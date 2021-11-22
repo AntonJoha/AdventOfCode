@@ -25,21 +25,44 @@ void testRun(){
 }
 
 
-bool testOne(){
+bool testMain(const char* filename, std::string expected){
 	
 	std::ifstream fs;
 	fs.open("test1");
 	if (!fs.is_open()) return false;
 	std::string result = run::solve(&fs);
 	fs.close();
-	return "" == result;
+	return expected == result;
 }
 
+#ifdef FIRST
 
-void addTest()
-{
+bool testOne(){
+	return testMain("test1.1", "");
+}
+
+void addTest(){
+
 	testcases.push_front(testOne);
+
 }
+
+#endif 
+
+#ifdef SECOND
+
+
+bool testOne(){
+	return testMain("test1.1", "");
+}
+
+void addTest(){
+
+	testcases.push_front(testOne);
+	
+}
+
+#endif
 
 int main(){
 	
