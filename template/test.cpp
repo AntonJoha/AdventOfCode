@@ -28,7 +28,7 @@ void testRun(){
 bool testMain(const char* filename, std::string expected){
 	
 	std::ifstream fs;
-	fs.open("test1");
+	fs.open(filename);
 	if (!fs.is_open()) return false;
 	std::string result = run::solve(&fs);
 	fs.close();
