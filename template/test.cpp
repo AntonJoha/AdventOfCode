@@ -27,8 +27,8 @@ void testRun(){
 
 bool testOne(){
 	
-	std::fstream fs;
-	fs.open("test1", std::fread);
+	std::ifstream fs;
+	fs.open("test1");
 	if (!fs.is_open()) return false;
 	std::string result = run::solve(&fs);
 	fs.close();

@@ -6,7 +6,7 @@
 class run{
 public:
 
-	static std::string solve(std::fstream *input);
+	static std::string solve(std::ifstream *input);
 
 };
 
