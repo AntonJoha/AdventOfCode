@@ -14,8 +14,6 @@ bool validPos(int i, int j){
 }
 
 //FIRST PROBLEM HERE
-#ifdef FIRST
-
 bool increasePos(const int i,const int j){
 	
 	if (!validPos(i, j)) return false;
@@ -23,7 +21,6 @@ bool increasePos(const int i,const int j){
 
 	table[i][j]++;
 	
-	std::cout << "NEW" << " " << table[i][j] << "\n";[i][j] << "\n";
 
 	return table[i][j] > '9';
 }
@@ -46,39 +43,16 @@ unsigned int flash(int i, int j){
 	unsigned int toReturn = 1;
 	
 
-	const int diff[12] = {-1, -1,
-		0, -1,
-		-1, 0,
-		1, 1,
-		0, 1,
-		1, 0};
+	for (int x = -1; x < 2; ++x){
+		for (int y = -1; y < 2; ++y){
 
-	for (int x = 0; x < 6; ++x){
-		if (increasePos(i + diff[2*x], j + diff[2*x + 1])){
-			std::cout << "FOUND\n";
-			toReturn += flash(i + diff[2*x], j + diff[2*x + 1]);
-		}
-	}
+			if (increasePos(i + x, j + y)){
+				toReturn += flash(i + x, j + y);
+			}
 
-	/*
-	for (int x = 0; x < 3; ++x){
-		
-		if (increasePos(i - 1 + x, j - 1)){
-			toReturn += flash(i - 1 + x, j - 1);
 		}
-		if (increasePos(i - 1 + x, j  + 1)){
-			toReturn += flash(i - 1 + x, j  + 1);
-		}
-	}
-	
-	for (int x = -1; x < 2; x += 2){
-		
-		if (increasePos(i, j + x)){
-			toReturn += flash(i, j + x);
-		}
-	}
 
-	*/
+	}
 	return toReturn;
 }
 
@@ -122,6 +96,9 @@ void printAll(){
 
 }
 
+#ifdef FIRST
+
+
 std::string run::solve(std::ifstream* file){
 	
 	std::string line;
@@ -137,14 +114,9 @@ std::string run::solve(std::ifstream* file){
 	
 	unsigned int res = 0;
 
-	for (int i = 0; i < 10; ++i){
+	for (int i = 0; i < 100; ++i){
 		res += update();
-		std::cout << res << "\n";
-		
-		printAll();
-
 	}
-	std::cout << res;
 	return std::to_string(res);
 }
 
@@ -154,8 +126,27 @@ std::string run::solve(std::ifstream* file){
 
 //SECOND PROBLEM HERE
 #ifdef SECOND
+
 std::string run::solve(std::ifstream* file){
 	
+	std::string line;
+	unsigned int count = 0;
+
+	while (*file >> line){
+		
+		for (int i = 0; i < SIZE; ++i){
+			table[count][i] = line[i];
+		}
+		++count;
+	}
+	
+	count = 1;
+
+	while (true){
+		unsigned int res = update();
+		if (res == 100) return std::to_string(count);
+		++count;
+	}
 
 	return "";
 }
