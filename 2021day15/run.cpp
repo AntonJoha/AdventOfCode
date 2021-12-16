@@ -7,7 +7,7 @@
 #endif
 
 #ifdef SECOND
-#define SIZE 50
+#define SIZE 500
 #endif
 
 typedef struct pos_t{
@@ -147,9 +147,9 @@ std::string run::solve(std::ifstream* file){
 				weigth[count + (SIZE/5)*j][i] = UINT_MAX;
 
 				for (size_t k = 1; k < 5; ++k){
-					value = table[count + (SIZE/5)*j][i + (SIZE/5)*(k - 1)];
-					temp = (value + 1)%10;
-					if (temp < value) temp++;
+					unsigned cvalue = table[count + (SIZE/5)*j][i + (SIZE/5)*(k - 1)];
+					temp = (cvalue + 1)%10;
+					if (temp < cvalue) temp++;
 					
 					table[count + (SIZE/5)*j][i + (SIZE/5)*k] = temp;
 					weigth[count + (SIZE/5)*j][i + (SIZE/5)*k] = UINT_MAX;
@@ -165,6 +165,7 @@ std::string run::solve(std::ifstream* file){
 		}
 		std::cout << "\n";
 	}
+	
 
 	weigth[0][0] = 0;
 
