@@ -56,14 +56,11 @@ def part1(lines):
                 else:
                     monkies[int(monkies[j]["false"])]["items"].append(value)
                 monkies[j]["count"] += 1
-        for j in range(0, len(monkies)):
-                print("Monkey %d: " % j, monkies[j]["items"])
 
     l = [monkies[i]["count"] for i in range(0, len(monkies))]
     l.sort()
     
 
-    print(l)
     print(l[-1]*l[-2])
 
 
@@ -72,8 +69,11 @@ def part2(lines):
 
     monkies = get_monkies(lines)
 
+    div = 1
+    l = [ i["test"] for i in monkies]
+    for i in l:
+        div *= i
     for i in range(0, 10000):
-        print("ROUND NUMBER %d" % i)
         for j in range(0, len(monkies)):
             while len(monkies[j]["items"]) > 0:
                 value = monkies[j]["items"].pop(0)
@@ -89,25 +89,22 @@ def part2(lines):
                     value += mult
 
                 if value % monkies[j]["test"] == 0:
-                    monkies[int(monkies[j]["true"])]["items"].append()
+                    monkies[int(monkies[j]["true"])]["items"].append(value % div)
                 else:
-                    monkies[int(monkies[j]["false"])]["items"].append(value)
+                    monkies[int(monkies[j]["false"])]["items"].append(value % div)
                 monkies[j]["count"] += 1
-        for j in range(0, len(monkies)):
-                print("Monkey %d: " % j, monkies[j]["items"])
 
     l = [monkies[i]["count"] for i in range(0, len(monkies))]
     l.sort()
     
 
-    print(l)
     print(l[-1]*l[-2])
 
 
 
 
 
-f = open("example","r")
+f = open("input","r")
 
 lines = [line.strip('\n') for line in f.readlines()]
 
